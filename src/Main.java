@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         addNewMedicine();
+        store.printListOfMedicines();
     }
     private static void addNewMedicine() {
         System.out.println("Enter new medicine number: ");
@@ -21,6 +22,22 @@ public class Main {
             System.out.println("New medicine added: number = " + number + ", name = " + name + ", price = " + price);
         } else {
             System.out.println("Cannot add, " + number + " already on file");
+        }
+    }
+
+    private static void removeContact(){
+        System.out.println("Enter number: ");
+        String number = scanner.nextLine();
+        Medicine existingMedicineRecord = store.queryMedicine(number);
+        if (existingMedicineRecord == null){
+            System.out.println("Medicine not found");
+            return;
+        }
+
+        if(store.removeMedicine(existingMedicineRecord)){
+            System.out.println("Successfully deleted");
+        }else{
+            System.out.println("Error");
         }
     }
 }
