@@ -60,6 +60,10 @@ public class Medicine {
         return price;
     }
 
+    public ArrayList<Charge> getCharges() {
+        return charges;
+    }
+
     public static Medicine createMedicine(String number, String name, double price){
         return new Medicine(number, name, price);
     }
