@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -87,24 +86,29 @@ public class Main {
         }
     }
 
+
     private static void addNewChargeToMedicine() {
         store.printListOfMedicines();
-        System.out.println("Enter the line number");
-        int medicineChoice = scanner.nextInt() -1;
-        scanner.nextLine();
+        System.out.println("Enter existing medicinenumber");
+        String medicineNumber = scanner.nextLine();
+        Medicine existingMedicineRecord = store.queryMedicine(medicineNumber);
+        if(existingMedicineRecord == null){
+            System.out.println("Medicine not found. ");
+            return;
+        }
+
         System.out.println("Enter new chargenumber: ");
         String chargeNumber = scanner.nextLine();
-        System.out.println("Enter new expiration date: ");
-        LocalDate expirationDate = scanner.nextLocalDate;
         System.out.println("Enter quantity: ");
         int quantity = scanner.nextInt();
-        Charge newCharge = Charge.createNewCharge(chargeNumber, expirationDate, quantity);
-
-        if (medicineChoice.addNewCharge(newCharge)) {
-            System.out.println("New charge added: chargenumber = " + chargeNumber + ", expirationdate = " + expirationDate + ", quantity = " + quantity);
-        } else {
-            System.out.println("Cannot add, " + chargeNumber + " already on file");
+        scanner.nextLine();
+        Charge newCharge = Charge.createNewCharge(chargeNumber, quantity);
+        if(existingMedicineRecord.addNewCharge(chargeNumber, quantity)){
+            System.out.println("New charge added: chargenumber = " + chargeNumber + ", quantity = " + quantity);
+        }else{
+            System.out.println("Cannot add, " + chargeNumber + "already on file");
         }
+
     }
 
 
