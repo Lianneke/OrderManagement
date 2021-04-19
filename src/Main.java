@@ -103,7 +103,7 @@ public class Main {
         int quantity = scanner.nextInt();
         scanner.nextLine();
         Charge newCharge = Charge.createNewCharge(chargeNumber, quantity);
-        if(existingMedicineRecord.addNewCharge(chargeNumber, quantity)){
+        if(existingMedicineRecord.addNewCharge(newCharge)){
             System.out.println("New charge added: chargenumber = " + chargeNumber + ", quantity = " + quantity);
         }else{
             System.out.println("Cannot add, " + chargeNumber + "already on file");

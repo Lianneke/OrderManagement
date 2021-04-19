@@ -13,16 +13,16 @@ public class Medicine {
         this.price = price;
         this.charges = new ArrayList<Charge>();
     }
-//main klopt nu, nu onderstaande methode nog afmaken.
-//    public boolean addNewCharge(String chargeNumber, int quantity){
-//charges.add(chargeNumber, quantity);
-//        if(findCharge(charge.getChargeNumber()) >= 0){
-//            System.out.println("Charge already exists");
-//            return false;
-//        }
-//        charges.add(charge);
-//        return true;
-//    }
+
+    public boolean addNewCharge(Charge charge){
+    charges.add(charge);
+        if(findCharge(charge.getChargeNumber()) >= 0){
+            System.out.println("Charge already exists");
+            return false;
+        }
+        charges.add(charge);
+        return true;
+    }
 
     public boolean removeCharge(Charge charge){
         int foundPosition = findCharge(charge);
