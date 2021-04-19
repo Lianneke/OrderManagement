@@ -16,10 +16,10 @@ public class Medicine {
 
     public boolean addNewCharge(Charge charge){
     charges.add(charge);
-        if(findCharge(charge.getChargeNumber()) >= 0){
-            System.out.println("Charge already exists");
-            return false;
-        }
+//        if(findCharge(charge.getChargeNumber()) >= 0){
+ //           System.out.println("Charge already exists");
+ //           return false;
+//        }
         charges.add(charge);
         return true;
     }
@@ -48,6 +48,13 @@ public class Medicine {
         }
         return -1;
     }
+
+//    public String queryCharge(Charge charge) {
+//        if(findCharge(charge) >=0){
+//            return charge.getChargeNumber();
+//        }
+//        return null;
+//    }
 
     public String getNumber() {
         return number;

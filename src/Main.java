@@ -35,6 +35,15 @@ public class Main {
 
             case 4:
                 addNewChargeToMedicine();
+                break;
+
+            case 5:
+             //   removeCharge();
+                break;
+
+            case 6:
+                printOptions();
+                break;
         }
         }
 
@@ -110,6 +119,21 @@ public class Main {
         }
 
     }
+
+//    public static void removeCharge(){
+//        store.printListOfMedicines();
+//        System.out.println("Enter existing medicinenumber");
+//        String medicineNumber = scanner.nextLine();
+//        Medicine existingMedicineRecord = store.queryMedicine(medicineNumber);
+//        if(existingMedicineRecord == null){
+//            System.out.println("Medicine not found. ");
+//            return;
+//        }
+
+//        System.out.println("Enter existing chargenumber");
+//        String chargeNumber = scanner.nextLine();
+//        Charge existingChargeRecord = existingMedicineRecord.queryCharge(chargeNumber);
+//    }
 
 
 }

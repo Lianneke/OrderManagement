@@ -45,7 +45,7 @@ public class Store {
         return this.medicines.indexOf(medicine);
     }
 
-    public int findMedicine(String medicineNumber) {
+    private int findMedicine(String medicineNumber) {
         for(int i=0; i<this.medicines.size(); i++) {
             Medicine medicine = this.medicines.get(i);
             if(medicine.getNumber().equals(medicineNumber)) {
