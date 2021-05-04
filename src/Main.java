@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
@@ -106,12 +107,16 @@ public class Main {
 
         System.out.println("Enter new chargenumber: ");
         String chargeNumber = scanner.nextLine();
+        System.out.println("Enter expiration date\n" +
+                "Please use the following format: yyyy-mm-dd");
+        String date = scanner.nextLine();
+        LocalDate expirationDate = LocalDate.parse(date);
         System.out.println("Enter quantity: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
-        Charge newCharge = Charge.createNewCharge(chargeNumber, quantity);
+        Charge newCharge = Charge.createNewCharge(chargeNumber, expirationDate, quantity);
         if(existingMedicineRecord.addNewCharge(newCharge)){
-            System.out.println("New charge added: chargenumber = " + chargeNumber + ", quantity = " + quantity);
+            System.out.println("New charge added: chargenumber = " + chargeNumber + " expirationDate = " + expirationDate + " quantity = " + quantity);
         }else{
             System.out.println("Cannot add, " + chargeNumber + "already on file");
         }
