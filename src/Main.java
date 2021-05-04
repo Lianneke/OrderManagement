@@ -5,13 +5,14 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static Store store = new Store("CZE");
 
+
     public static void main(String[] args) {
 
         boolean quit = false;
         printOptions();
 
         while (!quit){
-            System.out.println("\nEnter action: (6 to show available actions)");
+            System.out.println("\nEnter action: (5 to show available actions)");
             int action = scanner.nextInt();
             scanner.nextLine();
 
@@ -22,6 +23,7 @@ public class Main {
                 break;
 
             case 1:
+                System.out.println("ARTICLE OVERVIEW");
                 store.printListOfMedicines();
                 break;
 
@@ -38,12 +40,9 @@ public class Main {
                 break;
 
             case 5:
-             //   removeCharge();
-                break;
-
-            case 6:
                 printOptions();
                 break;
+
         }
         }
 
@@ -58,8 +57,7 @@ public class Main {
                 "2  - add a new medicine\n" +
                 "3  - remove a medicine\n" +
                 "4  - add a new charge to a medicine\n" +
-                "5  - remove a charge from a medicine\n" +
-                "6  - show available options\n");
+                "5  - show available options\n");
         System.out.println("Choose your action: ");
     }
 

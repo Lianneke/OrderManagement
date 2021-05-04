@@ -24,16 +24,16 @@ public class Medicine {
         return true;
     }
 
-    public boolean removeCharge(Charge charge){
-        int foundPosition = findCharge(charge);
-        if(foundPosition <0){
-            System.out.println(charge.getChargeNumber() + ", was  not found");
-            return false;
-        }
-        this.charges.remove(foundPosition);
-        System.out.println(charge.getChargeNumber() + ", was deleted");
-        return true;
-    }
+ //   public boolean removeCharge(Charge charge){
+ //       int foundPosition = findCharge(charge);
+ //       if(foundPosition <0){
+ //           System.out.println(charge.getChargeNumber() + ", was  not found");
+ //           return false;
+ //       }
+ //       this.charges.remove(foundPosition);
+ //       System.out.println(charge.getChargeNumber() + ", was deleted");
+ //       return true;
+ //   }
 
     private int findCharge(Charge charge) {
         return this.charges.indexOf(charge);

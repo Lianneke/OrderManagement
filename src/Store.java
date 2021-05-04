@@ -12,7 +12,6 @@ public class Store {
 
     public boolean addNewMedicine(Medicine medicine){
     if(findMedicine(medicine.getNumber()) >= 0){
-        System.out.println("Medicine is already in store");
     return false;
     }
     medicines.add(medicine);
@@ -20,7 +19,6 @@ public class Store {
     }
 
     public void printListOfMedicines(){
-        System.out.println("ARTICLE OVERVIEW");
         for(int i=0; i<this.medicines.size(); i++){
             System.out.println(i+1 + "." +
                     this.medicines.get(i).getNumber() + " - " +
@@ -32,11 +30,9 @@ public class Store {
     public boolean removeMedicine(Medicine medicine){
         int foundPosition = findMedicine(medicine);
         if(foundPosition <0){
-            System.out.println(medicine.getNumber() + ", was  not found");
             return false;
         }
         this.medicines.remove(foundPosition);
-        System.out.println(medicine.getNumber() + ", was deleted");
         return true;
     }
 
