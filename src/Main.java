@@ -44,6 +44,10 @@ public class Main {
                 printOptions();
                 break;
 
+            case 6:
+                order();
+                break;
+
         }
         }
 
@@ -58,7 +62,8 @@ public class Main {
                 "2  - add a new medicine\n" +
                 "3  - remove a medicine\n" +
                 "4  - add a new charge to a medicine\n" +
-                "5  - show available options\n");
+                "5  - show available options\n" +
+                "6  - start to order\n");
         System.out.println("Choose your action: ");
     }
 
@@ -121,6 +126,18 @@ public class Main {
             System.out.println("Cannot add, " + chargeNumber + "already on file");
         }
 
+    }
+
+    public static void order(){
+        store.printListOfMedicines();
+        System.out.println("Enter existing medicinenumber");
+        String medicineNumber = scanner.nextLine();
+        Medicine existingMedicineRecord = store.queryMedicine(medicineNumber);
+        if(existingMedicineRecord == null){
+            System.out.println("Medicine not found.");
+            return;
+        }
+        System.out.println(store.printListOfCharges(existingMedicineRecord));
     }
 
 //    public static void removeCharge(){

@@ -36,6 +36,14 @@ public class Store {
         return true;
     }
 
+    public boolean printListOfCharges(Medicine medicine){
+        if(findMedicine(medicine.getNumber()) <0){
+            return false;
+        }
+        System.out.println(medicine.getCharges());
+        return true;
+    }
+
 
     private int findMedicine(Medicine medicine) {
         return this.medicines.indexOf(medicine);
