@@ -9,6 +9,12 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Voorgecodeerde medicijnen
+        Medicine medicine = new Medicine("158269", "Paracetamol 500mg", 1.99);
+        Medicine medicine1 = new Medicine("8547963", "Bupivacaine 1,25mg", 2.98);
+        store.addNewMedicine(medicine);
+        store.addNewMedicine(medicine1);
+
         boolean quit = false;
         printOptions();
 
@@ -137,7 +143,7 @@ public class Main {
             System.out.println("Medicine not found.");
             return;
         }
-        System.out.println(store.printListOfCharges(existingMedicineRecord));
+        existingMedicineRecord.printListOfCharges();
     }
 
 //    public static void removeCharge(){

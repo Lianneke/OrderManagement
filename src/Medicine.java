@@ -20,8 +20,16 @@ public class Medicine {
  //           System.out.println("Charge already exists");
  //           return false;
 //        }
-        charges.add(charge);
         return true;
+    }
+
+    public void printListOfCharges(){
+        for(int i=0; i<this.charges.size(); i++){
+            System.out.println(i+1 + "." +
+                    this.charges.get(i).getChargeNumber() + " - " +
+                    this.charges.get(i).getExpirationDate() + " - " +
+                    this.charges.get(i).getQuantity());
+        }
     }
 
  //   public boolean removeCharge(Charge charge){
