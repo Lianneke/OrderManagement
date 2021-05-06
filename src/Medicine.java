@@ -28,8 +28,17 @@ public class Medicine {
             System.out.println(i+1 + "." +
                     this.charges.get(i).getChargeNumber() + " - " +
                     this.charges.get(i).getExpirationDate() + " - " +
-                    this.charges.get(i).getQuantity());
+                    this.charges.get(i).getQuantity() + " - ");
         }
+        }
+
+        public double discountAllowed(Charge charge){
+        if(charge.isDiscountPrice() == false) {
+            return price;
+        }else{
+            double discountPrice = price * 0.75;
+            return discountPrice;
+            }
     }
 
  //   public boolean removeCharge(Charge charge){
