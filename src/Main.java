@@ -144,6 +144,15 @@ public class Main {
             return;
         }
         existingMedicineRecord.printListOfCharges();
+        System.out.println("Enter existing chargenumber");
+        String chargeNumber = scanner.nextLine();
+        Charge existingChargeNumber = existingMedicineRecord.queryCharge(chargeNumber);
+        if(existingChargeNumber == null){
+            System.out.println("Charge not found");
+            return;
+        }
+        System.out.println(existingMedicineRecord.discountAllowed(existingChargeNumber));
+
     }
 
 //    public static void removeCharge(){

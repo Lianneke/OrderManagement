@@ -28,12 +28,12 @@ public class Medicine {
             System.out.println(i+1 + "." +
                     this.charges.get(i).getChargeNumber() + " - " +
                     this.charges.get(i).getExpirationDate() + " - " +
-                    this.charges.get(i).getQuantity() + " - ");
+                    this.charges.get(i).getQuantity() + " - " );
         }
         }
 
         public double discountAllowed(Charge charge){
-        if(charge.isDiscountPrice() == false) {
+        if(charge.discountAllowedON(charge) == false) {
             return price;
         }else{
             double discountPrice = price * 0.75;
@@ -66,12 +66,20 @@ public class Medicine {
         return -1;
     }
 
-//    public String queryCharge(Charge charge) {
-//        if(findCharge(charge) >=0){
-//            return charge.getChargeNumber();
-//        }
-//        return null;
-//    }
+    public String queryCharge(Charge charge) {
+        if(findCharge(charge) >=0){
+            return charge.getChargeNumber();
+        }
+        return null;
+    }
+
+    public Charge queryCharge(String chargeNumber){
+        int position = findCharge(chargeNumber);
+        if(position >=0){
+            return this.charges.get(position);
+        }
+        return null;
+    }
 
     public String getNumber() {
         return number;
