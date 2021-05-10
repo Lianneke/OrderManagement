@@ -141,7 +141,18 @@ public class Main {
     }
 
     public static void order(){
+        //enter the customer
+        pharmacy.printListOfCustomers();
+        System.out.println("Enter you customerID");
+        String customerID = scanner.nextLine();
+        Customer existingCustomerRecord = pharmacy.queryCustomer(customerID);
+        if(existingCustomerRecord == null){
+            System.out.println("Customer not found");
+            return;
+        }
+        System.out.println("You are " + existingCustomerRecord.getName());
 
+        //medicine choice
         store.printListOfMedicines();
         System.out.println("Enter existing medicinenumber");
         String medicineNumber = scanner.nextLine();
@@ -150,6 +161,7 @@ public class Main {
             System.out.println("Medicine not found.");
             return;
         }
+        //charge choice
         existingMedicineRecord.printListOfCharges();
         System.out.println("Enter existing chargenumber");
         String chargeNumber = scanner.nextLine();
@@ -172,9 +184,12 @@ public class Main {
             System.out.println("how many pieces do you want to order?");
             int pieces = scanner.nextInt();
 
+            //creating a new orderline
             OrderLine newOrderLine = new OrderLine(existingMedicineRecord, existingChargeNumber, pieces);
 
-            Order newOrder = new Order(1, newOrderLine);
+            //creating a new order
+            //contains a customer, orderline and a ordernumber;
+            Order newOrder = new Order(1, existingCustomerRecord, newOrderLine);
             newOrder.addNewOrderLine(newOrderLine);
             System.out.println("New orderline added to order: Medicine = " + existingMedicineRecord.getNumber() + " - " + existingMedicineRecord.getName() + " - " + existingMedicineRecord.getPrice() +
                     " chargenumber = " + existingChargeNumber.getChargeNumber() + " - " + existingChargeNumber.getExpirationDate() + " - " + pieces);
@@ -203,6 +218,19 @@ public class Main {
             System.out.println("Cannot add, " + name + " already on file");
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //    public static void removeCharge(){

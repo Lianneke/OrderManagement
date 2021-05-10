@@ -4,6 +4,7 @@ public class Order {
 
 //    private static long count = 0;
     private int orderNumber;
+    private Customer customer;
     private OrderLine orderLine;
     private ArrayList <OrderLine> orderLines;
 
@@ -24,8 +25,9 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public Order(int orderNumber, OrderLine orderLine) {
+    public Order(int orderNumber, Customer customer, OrderLine orderLine) {
         this.orderNumber = orderNumber;
+        this.customer = customer;
         this.orderLine = orderLine;
         this.orderLines = new ArrayList<OrderLine>();
     }

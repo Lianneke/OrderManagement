@@ -40,4 +40,19 @@ public class Pharmacy {
         }
         return -1;
     }
+
+    public String queryCustomer(Customer customer) {
+        if(findCustomer(customer) >=0){
+            return customer.getCustomerID();
+        }
+        return null;
+    }
+
+    public Customer queryCustomer(String customerID){
+        int position = findCustomer(customerID);
+        if(position >=0){
+            return this.customers.get(position);
+        }
+        return null;
+    }
 }
