@@ -9,6 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         //Voorgecodeerde medicijnen
         Medicine medicine = new Medicine("158269", "Paracetamol 500mg", 1.99);
         Medicine medicine1 = new Medicine("8547963", "Bupivacaine 1,25mg", 2.98);
@@ -153,7 +154,32 @@ public class Main {
         }
         System.out.println(existingMedicineRecord.discountAllowed(existingChargeNumber));
 
+        System.out.println("Do you wanna order from this charge? Yes/No");
+        String orderAnswer = scanner.nextLine();
+        if(!orderAnswer.equals("No") && !orderAnswer.equals("Yes")){
+            System.out.println("Please only answer as No/Yes");
+            order();
+        }else if
+            (orderAnswer.equals("No")){
+            existingMedicineRecord.printListOfCharges();
+        }else{
+            System.out.println("how many pieces do you want to order?");
+            int pieces = scanner.nextInt();
+
+            OrderLine newOrderLine = new OrderLine(existingMedicineRecord, existingChargeNumber, pieces);
+
+            Order newOrder = new Order(1, newOrderLine);
+            newOrder.addNewOrderLine(newOrderLine);
+            System.out.println("New orderline added to order: Medicine = " + existingMedicineRecord.getNumber() + " - " + existingMedicineRecord.getName() + " - " + existingMedicineRecord.getPrice() +
+                    " chargenumber = " + existingChargeNumber.getChargeNumber() + " - " + existingChargeNumber.getExpirationDate() + " - " + pieces);
+
+
+        }
+
     }
+
+
+
 
 //    public static void removeCharge(){
 //        store.printListOfMedicines();
