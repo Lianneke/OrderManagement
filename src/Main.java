@@ -5,6 +5,7 @@ public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
     private static Store store = new Store("CZE");
+    private static Pharmacy pharmacy = new Pharmacy("CZE");
 
 
     public static void main(String[] args) {
@@ -55,6 +56,9 @@ public class Main {
                 order();
                 break;
 
+            case 7:
+                addNewCustomer();
+
         }
         }
 
@@ -70,7 +74,8 @@ public class Main {
                 "3  - remove a medicine\n" +
                 "4  - add a new charge to a medicine\n" +
                 "5  - show available options\n" +
-                "6  - start to order\n");
+                "6  - start to order\n" +
+                "7  - add a new customer\n");
         System.out.println("Choose your action: ");
     }
 
@@ -136,6 +141,7 @@ public class Main {
     }
 
     public static void order(){
+
         store.printListOfMedicines();
         System.out.println("Enter existing medicinenumber");
         String medicineNumber = scanner.nextLine();
@@ -178,7 +184,25 @@ public class Main {
 
     }
 
+    public static void addNewCustomer(){
+        System.out.println("Enter new customerID");
+        String customerID = scanner.nextLine();
+        System.out.println("Enter new customername: ");
+        String name = scanner.nextLine();
+        System.out.println("Enter new customeraddress ");
+        String address = scanner.nextLine();
+        System.out.println("Enter new telephonenumber: ");
+        String telephonenumber = scanner.nextLine();
+        System.out.println("Enter new emailaddress: ");
+        String email = scanner.nextLine();
 
+        Customer newCustomer = Customer.createCustomer(customerID, name, address, telephonenumber, email);
+        if (pharmacy.addNewCustomer(newCustomer)) {
+            System.out.println("New customer added: customerID = " + customerID + ", name = " + name + ", address = " + address + ", telephonenumber = " + telephonenumber + ", email = " + email);
+        } else {
+            System.out.println("Cannot add, " + name + " already on file");
+        }
+    }
 
 
 //    public static void removeCharge(){
