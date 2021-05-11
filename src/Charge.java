@@ -8,6 +8,7 @@ public class Charge {
     private LocalDate expirationDate;
     private int quantity;
     private boolean discountPrice = false;
+    private double discountPriceActive;
 
     public Charge(String chargeNumber,  LocalDate expirationDate, int quantity) {
         this.chargeNumber = chargeNumber;
@@ -25,6 +26,10 @@ public class Charge {
         }
     }
 
+    public void setDiscountPriceActive(double discountPriceActive) {
+        this.discountPriceActive = discountPriceActive;
+    }
+
     public String getChargeNumber() {
         return chargeNumber;
     }
@@ -35,6 +40,10 @@ public class Charge {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public double getDiscountPriceActive() {
+        return discountPriceActive;
     }
 
     public boolean isDiscountPrice() {

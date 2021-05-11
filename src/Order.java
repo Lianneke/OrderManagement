@@ -2,38 +2,40 @@ import java.util.ArrayList;
 
 public class Order {
 
-//    private static long count = 0;
-    private int orderNumber;
+
+//    private int nextOrderNumber = 1;
+
     private Customer customer;
-    private OrderLine orderLine;
+    private long orderNumber;
     private ArrayList <OrderLine> orderLines;
 
-//    private boolean isFilled;
-
- //   public TestIncrement(String title){
-//        name = title;
-
-//        isFilled = false;
-//        setOrderNumber(++count);
-//    }
-
-    public int getOrderNumber(){
-        return orderNumber;
-    }
-
-    public void setOrderNumber(int orderNumber){
-        this.orderNumber = orderNumber;
-    }
-
-    public Order(int orderNumber, Customer customer, OrderLine orderLine) {
-        this.orderNumber = orderNumber;
+    public Order(Customer customer, long orderNumber) {
         this.customer = customer;
-        this.orderLine = orderLine;
+        this.orderNumber = orderNumber;
         this.orderLines = new ArrayList<OrderLine>();
     }
 
-    public boolean addNewOrderLine(OrderLine orderLine){
+    public void printListOfOrderLines(){
+        for(int i=0; i<this.orderLines.size(); i++){
+            System.out.println(i+1 + "." +
+                    this.orderLines.get(i).getMedicine() + " - " +
+                    this.orderLines.get(i).getCharge()  + " - " +
+                    this.orderLines.get(i).getQuantity()  + " - " +
+                    this.orderLines.get(i).getPrice());
+        }
+    }
+
+
+
+    public long getOrderNumber(){
+        return orderNumber;
+    }
+
+    public void addNewOrderLine(OrderLine orderLine){
         orderLines.add(orderLine);
-        return true;
+    }
+
+    public static Order createOrder(Customer customer, long orderNumber){
+        return new Order(customer, (int) orderNumber);
     }
 }

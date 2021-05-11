@@ -17,51 +17,54 @@ public class Main {
         store.addNewMedicine(medicine);
         store.addNewMedicine(medicine1);
 
+        //voorgecodeerde klanten
+        Customer customer = new Customer("1", "ETZ", "Teststraat 6", "06test", "test@testmail.com");
+
         boolean quit = false;
         printOptions();
 
-        while (!quit){
+        while (!quit) {
             System.out.println("\nEnter action: (5 to show available actions)");
             int action = scanner.nextInt();
             scanner.nextLine();
 
-        switch (action){
-            case 0:
-                System.out.println("bye!");
-                quit = true;
-                break;
+            switch (action) {
+                case 0:
+                    System.out.println("bye!");
+                    quit = true;
+                    break;
 
-            case 1:
-                System.out.println("ARTICLE OVERVIEW");
-                store.printListOfMedicines();
-                break;
+                case 1:
+                    System.out.println("ARTICLE OVERVIEW");
+                    store.printListOfMedicines();
+                    break;
 
-            case 2:
-                addNewMedicine();
-                break;
+                case 2:
+                    collectNewMedicineData();
+                    break;
 
-            case 3:
-                removeMedicine();
-                break;
+                case 4:
+                    store.printListOfMedicines();
+                    collectDataToSearchForMedicine();
+                    break;
 
-            case 4:
-                addNewChargeToMedicine();
-                break;
+                case 5:
+                    printOptions();
+                    break;
 
-            case 5:
-                printOptions();
-                break;
+                case 6:
+                    collectCustomerData();
+                    break;
 
-            case 6:
-                order();
-                break;
+                case 7:
+                    addNewCustomer();
 
-            case 7:
-                addNewCustomer();
+                case 8:
+                    store.printListOfMedicines();
+                    collectDataToSearchForMedicine();
 
+            }
         }
-        }
-
 
 
     }
@@ -71,57 +74,92 @@ public class Main {
         System.out.println("0  - exit\n" +
                 "1  - print medicines\n" +
                 "2  - add a new medicine\n" +
-                "3  - remove a medicine\n" +
                 "4  - add a new charge to a medicine\n" +
                 "5  - show available options\n" +
                 "6  - start to order\n" +
-                "7  - add a new customer\n");
+                "7  - add a new customer\n" +
+                "8  - medication Adjustments\n");
+        System.out.println("Choose your action: ");
+    }
+
+    private static void printOptionsEmployee() {
+        System.out.println("\nAvailable actions:\npress");
+        System.out.println("0  - exit\n" +
+                "1  - remove a medicine\n" +
+                "2  - add a new charge to a medicine");
         System.out.println("Choose your action: ");
     }
 
 
-    private static void addNewMedicine() {
+    private static void collectNewMedicineData() {
         System.out.println("Enter new medicine number: ");
         String number = scanner.nextLine();
         System.out.println("Enter new medicine name: ");
         String name = scanner.nextLine();
         System.out.println("Enter new medicine price: ");
         double price = scanner.nextDouble();
+
+        createNewMedicine(number, name, price);
+    }
+
+    private static void createNewMedicine(String number, String name, double price) {
         Medicine newMedicine = Medicine.createMedicine(number, name, price);
-        if (store.addNewMedicine(newMedicine)) {
-            System.out.println("New medicine added: number = " + number + ", name = " + name + ", price = " + price);
+        addMedicineToStore(newMedicine);
+    }
+
+    private static void addMedicineToStore(Medicine medicine) {
+        if (store.addNewMedicine(medicine)) {
+            System.out.println("New medicine added: number = " + medicine.getNumber() + ", name = " + medicine.getName() + ", price = " + medicine.getPrice());
         } else {
-            System.out.println("Cannot add, " + number + " already on file");
+            System.out.println("Cannot add, " + medicine.getNumber() + " already on file");
         }
     }
 
-    private static void removeMedicine(){
+    private static void collectDataToSearchForMedicine() {
         System.out.println("Enter number: ");
         String number = scanner.nextLine();
+        searchMedicine(number);
+    }
+
+    private static void searchMedicine(String number) {
         Medicine existingMedicineRecord = store.queryMedicine(number);
-        if (existingMedicineRecord == null){
+        if (existingMedicineRecord == null) {
             System.out.println("Medicine not found");
             return;
+        } else {
+            choiceBetweenRemoveMedicineAndAddingANewCharge(existingMedicineRecord);
         }
+    }
 
-        if(store.removeMedicine(existingMedicineRecord)){
-            System.out.println("Successfully deleted");
-        }else{
+    private static void choiceBetweenRemoveMedicineAndAddingANewCharge(Medicine existingMedicineRecord) {
+        printOptionsEmployee();
+
+        int action = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (action) {
+
+            case 1:
+                removeMedicineFromStore(existingMedicineRecord);
+                break;
+
+            case 2:
+                collectNewChargeData(existingMedicineRecord);
+                break;
+
+        }
+    }
+
+    private static void removeMedicineFromStore(Medicine existingMedicineRecord) {
+        if (store.removeMedicine(existingMedicineRecord)) {
+            System.out.println("Medicine: " + existingMedicineRecord.getNumber() + " - " + existingMedicineRecord.getName() +
+                    "\nSuccessfully deleted");
+        } else {
             System.out.println("Error");
         }
     }
 
-
-    private static void addNewChargeToMedicine() {
-        store.printListOfMedicines();
-        System.out.println("Enter existing medicinenumber");
-        String medicineNumber = scanner.nextLine();
-        Medicine existingMedicineRecord = store.queryMedicine(medicineNumber);
-        if(existingMedicineRecord == null){
-            System.out.println("Medicine not found. ");
-            return;
-        }
-
+    private static void collectNewChargeData(Medicine existingMedicineRecord) {
         System.out.println("Enter new chargenumber: ");
         String chargeNumber = scanner.nextLine();
         System.out.println("Enter expiration date\n" +
@@ -131,75 +169,127 @@ public class Main {
         System.out.println("Enter quantity: ");
         int quantity = scanner.nextInt();
         scanner.nextLine();
-        Charge newCharge = Charge.createNewCharge(chargeNumber, expirationDate, quantity);
-        if(existingMedicineRecord.addNewCharge(newCharge)){
-            System.out.println("New charge added: chargenumber = " + chargeNumber + " expirationDate = " + expirationDate + " quantity = " + quantity);
-        }else{
-            System.out.println("Cannot add, " + chargeNumber + "already on file");
-        }
-
+        createNewCharge(chargeNumber, expirationDate, quantity, existingMedicineRecord);
     }
 
-    public static void order(){
-        //enter the customer
+    private static void createNewCharge(String chargeNumber, LocalDate expirationDate, int quantity, Medicine existingMedicineRecord) {
+        Charge newCharge = Charge.createNewCharge(chargeNumber, expirationDate, quantity);
+        addNewChargeToMedicine(newCharge, existingMedicineRecord);
+    }
+
+
+    private static void addNewChargeToMedicine(Charge newCharge, Medicine existingMedicineRecord) {
+        if (existingMedicineRecord.addNewCharge(newCharge)) {
+            System.out.println("New charge added: chargenumber = " + newCharge.getChargeNumber() + ", expirationDate = " + newCharge.getExpirationDate() + ", quantity = " + newCharge.getQuantity());
+        } else {
+            System.out.println("Cannot add, " + newCharge.getChargeNumber() + "already on file");
+        }
+    }
+
+    public static void collectCustomerData() {
         pharmacy.printListOfCustomers();
         System.out.println("Enter you customerID");
         String customerID = scanner.nextLine();
+        searchCustomer(customerID);
+    }
+
+    private static void searchCustomer(String customerID) {
         Customer existingCustomerRecord = pharmacy.queryCustomer(customerID);
-        if(existingCustomerRecord == null){
+        if (existingCustomerRecord == null) {
             System.out.println("Customer not found");
             return;
         }
         System.out.println("You are " + existingCustomerRecord.getName());
+        searchMedicineToStartOrder(existingCustomerRecord);
+    }
 
-        //medicine choice
+    private static void searchMedicineToStartOrder(Customer existingCustomerRecord) {
         store.printListOfMedicines();
         System.out.println("Enter existing medicinenumber");
         String medicineNumber = scanner.nextLine();
         Medicine existingMedicineRecord = store.queryMedicine(medicineNumber);
-        if(existingMedicineRecord == null){
+        if (existingMedicineRecord == null) {
             System.out.println("Medicine not found.");
             return;
+        } else {
+            continueOrderChargeChoice(existingCustomerRecord, existingMedicineRecord);
         }
-        //charge choice
+    }
+
+    private static void continueOrderChargeChoice(Customer existingCustomerRecord, Medicine existingMedicineRecord) {
         existingMedicineRecord.printListOfCharges();
+
         System.out.println("Enter existing chargenumber");
         String chargeNumber = scanner.nextLine();
+        searchCharge(existingCustomerRecord, existingMedicineRecord, chargeNumber);
+    }
+
+    private static void searchCharge(Customer existingCustomerRecord, Medicine existingMedicineRecord, String chargeNumber) {
         Charge existingChargeNumber = existingMedicineRecord.queryCharge(chargeNumber);
-        if(existingChargeNumber == null){
+        if (existingChargeNumber == null) {
             System.out.println("Charge not found");
             return;
         }
-        System.out.println(existingMedicineRecord.discountAllowed(existingChargeNumber));
-
-        System.out.println("Do you wanna order from this charge? Yes/No");
-        String orderAnswer = scanner.nextLine();
-        if(!orderAnswer.equals("No") && !orderAnswer.equals("Yes")){
-            System.out.println("Please only answer as No/Yes");
-            order();
-        }else if
-            (orderAnswer.equals("No")){
-            existingMedicineRecord.printListOfCharges();
-        }else{
-            System.out.println("how many pieces do you want to order?");
-            int pieces = scanner.nextInt();
-
-            //creating a new orderline
-            OrderLine newOrderLine = new OrderLine(existingMedicineRecord, existingChargeNumber, pieces);
-
-            //creating a new order
-            //contains a customer, orderline and a ordernumber;
-            Order newOrder = new Order(1, existingCustomerRecord, newOrderLine);
-            newOrder.addNewOrderLine(newOrderLine);
-            System.out.println("New orderline added to order: Medicine = " + existingMedicineRecord.getNumber() + " - " + existingMedicineRecord.getName() + " - " + existingMedicineRecord.getPrice() +
-                    " chargenumber = " + existingChargeNumber.getChargeNumber() + " - " + existingChargeNumber.getExpirationDate() + " - " + pieces);
-
-
-        }
-
+        checkIfDiscountIsAllowed(existingChargeNumber, existingMedicineRecord, existingCustomerRecord);
     }
 
-    public static void addNewCustomer(){
+    private static void checkIfDiscountIsAllowed(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord) {
+        double Price = existingMedicineRecord.discountAllowed(existingChargeNumber);
+        System.out.println(Price);
+        verifingChargeChoice(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, Price);
+    }
+
+    private static void verifingChargeChoice(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, double Price) {
+        System.out.println("Do you wanna order from this charge?\n" +
+                "1. Yes\n" +
+                "2. No\n");
+        String orderAnswer = scanner.nextLine();
+
+        switch (orderAnswer) {
+            case "1":
+                setHowManyPieces(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, Price);
+                break;
+            case "2":
+                continueOrderChargeChoice(existingCustomerRecord, existingMedicineRecord);
+            default:
+                continueOrderChargeChoice(existingCustomerRecord, existingMedicineRecord);
+        }
+    }
+
+    private static void setHowManyPieces(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, double Price) {
+        System.out.println("how many pieces do you want to order?");
+        int pieces = scanner.nextInt();
+        createNewOrderLine(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, pieces, Price);
+    }
+
+    private static void createNewOrderLine(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, int pieces, double Price) {
+        OrderLine newOrderLine = OrderLine.createOrderLine(existingMedicineRecord, existingChargeNumber, pieces, Price);
+        createNewOrder(existingCustomerRecord, newOrderLine);
+    }
+
+    //oplossen dat ordernummer automatisch wordt gegenereerd
+    private static void createNewOrder(Customer existingCustomerRecord, OrderLine newOrderLine) {
+        System.out.println("Enter date+time. Example: 202105101529");
+        long orderNumber = scanner.nextLong();
+        Order newOrder = Order.createOrder(existingCustomerRecord, orderNumber);
+        addOrderLineToOrder(newOrder, newOrderLine);
+    }
+
+    private static void addOrderLineToOrder(Order newOrder, OrderLine newOrderLine) {
+        newOrder.addNewOrderLine(newOrderLine);
+        newOrder.printListOfOrderLines();
+    }
+
+
+    //creating a new order
+    //contains a customer, orderline and a ordernumber;
+    //           Order newOrder = new Order(1, existingCustomerRecord, newOrderLine);
+    //           newOrder.addNewOrderLine(newOrderLine);
+//            System.out.println("New orderline added to order: Medicine = " + existingMedicineRecord.getNumber() + " - " + existingMedicineRecord.getName() + " - " + existingChargeNumber.getDiscountPriceActive() +
+//                    " chargenumber = " + existingChargeNumber.getChargeNumber() + " - " + existingChargeNumber.getExpirationDate() + " - " + pieces);
+
+
+    public static void addNewCustomer() {
         System.out.println("Enter new customerID");
         String customerID = scanner.nextLine();
         System.out.println("Enter new customername: ");
@@ -218,6 +308,7 @@ public class Main {
             System.out.println("Cannot add, " + name + " already on file");
         }
     }
+}
 
 
 
@@ -249,4 +340,4 @@ public class Main {
 //    }
 
 
-}
+

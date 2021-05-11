@@ -14,29 +14,32 @@ public class Medicine {
         this.charges = new ArrayList<Charge>();
     }
 
-    public boolean addNewCharge(Charge charge){
-    charges.add(charge);
+    public boolean addNewCharge(Charge charge) {
+        charges.add(charge);
 //        if(findCharge(charge.getChargeNumber()) >= 0){
- //           System.out.println("Charge already exists");
- //           return false;
+        //           System.out.println("Charge already exists");
+        //           return false;
 //        }
         return true;
     }
 
-    public void printListOfCharges(){
-        for(int i=0; i<this.charges.size(); i++){
-            System.out.println(i+1 + "." +
+    public void printListOfCharges() {
+        for (int i = 0; i < this.charges.size(); i++) {
+            System.out.println(i + 1 + "." +
                     this.charges.get(i).getChargeNumber() + " - " +
                     this.charges.get(i).getExpirationDate() + " - " +
-                    this.charges.get(i).getQuantity() + " - " );
+                    this.charges.get(i).getQuantity() + " - "
+            );
         }
-        }
+    }
+
 
         public double discountAllowed(Charge charge){
         if(charge.discountAllowedON(charge) == false) {
             return price;
         }else{
             double discountPrice = price * 0.75;
+            charge.setDiscountPriceActive(discountPrice);
             return discountPrice;
             }
     }
