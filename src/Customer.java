@@ -26,7 +26,7 @@ public class Customer {
         return name;
     }
 
-    public static Customer createCustomer(String customerID, String name, String adress, String telephoneNumber, String email){
-        return new Customer(customerID, name, adress, telephoneNumber, email);
-    }
+//    public static Customer createCustomer(String customerID, String name, String adress, String telephoneNumber, String email){
+//        return new Customer(customerID, name, adress, telephoneNumber, email);
+//    }
 }

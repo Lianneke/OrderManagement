@@ -17,8 +17,10 @@ public class Main {
         store.addNewMedicine(medicine);
         store.addNewMedicine(medicine1);
 
+
         //voorgecodeerde klanten
         Customer customer = new Customer("1", "ETZ", "Teststraat 6", "06test", "test@testmail.com");
+        pharmacy.addNewCustomer(customer);
 
         boolean quit = false;
         printOptions();
@@ -103,7 +105,7 @@ public class Main {
     }
 
     private static void createNewMedicine(String number, String name, double price) {
-        Medicine newMedicine = Medicine.createMedicine(number, name, price);
+        Medicine newMedicine = new Medicine(number, name, price);
         addMedicineToStore(newMedicine);
     }
 
@@ -173,7 +175,7 @@ public class Main {
     }
 
     private static void createNewCharge(String chargeNumber, LocalDate expirationDate, int quantity, Medicine existingMedicineRecord) {
-        Charge newCharge = Charge.createNewCharge(chargeNumber, expirationDate, quantity);
+        Charge newCharge = new Charge(chargeNumber, expirationDate, quantity);
         addNewChargeToMedicine(newCharge, existingMedicineRecord);
     }
 
@@ -263,7 +265,7 @@ public class Main {
     }
 
     private static void createNewOrderLine(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, int pieces, double Price) {
-        OrderLine newOrderLine = OrderLine.createOrderLine(existingMedicineRecord, existingChargeNumber, pieces, Price);
+        OrderLine newOrderLine = new OrderLine(existingMedicineRecord, existingChargeNumber, pieces, Price);
         createNewOrder(existingCustomerRecord, newOrderLine);
     }
 
@@ -271,23 +273,20 @@ public class Main {
     private static void createNewOrder(Customer existingCustomerRecord, OrderLine newOrderLine) {
         System.out.println("Enter date+time. Example: 202105101529");
         long orderNumber = scanner.nextLong();
-        Order newOrder = Order.createOrder(existingCustomerRecord, orderNumber);
+        Order newOrder = new Order(existingCustomerRecord, orderNumber);
         addOrderLineToOrder(newOrder, newOrderLine);
     }
 
+
+
     private static void addOrderLineToOrder(Order newOrder, OrderLine newOrderLine) {
         newOrder.addNewOrderLine(newOrderLine);
-        newOrder.printListOfOrderLines();
+        printListOfOrderLines(newOrder);
     }
 
-
-    //creating a new order
-    //contains a customer, orderline and a ordernumber;
-    //           Order newOrder = new Order(1, existingCustomerRecord, newOrderLine);
-    //           newOrder.addNewOrderLine(newOrderLine);
-//            System.out.println("New orderline added to order: Medicine = " + existingMedicineRecord.getNumber() + " - " + existingMedicineRecord.getName() + " - " + existingChargeNumber.getDiscountPriceActive() +
-//                    " chargenumber = " + existingChargeNumber.getChargeNumber() + " - " + existingChargeNumber.getExpirationDate() + " - " + pieces);
-
+    public static void printListOfOrderLines(Order newOrder) {
+        System.out.println(newOrder.getOrderLines());
+    }
 
     public static void addNewCustomer() {
         System.out.println("Enter new customerID");
@@ -301,13 +300,15 @@ public class Main {
         System.out.println("Enter new emailaddress: ");
         String email = scanner.nextLine();
 
-        Customer newCustomer = Customer.createCustomer(customerID, name, address, telephonenumber, email);
+        Customer newCustomer = new Customer(customerID, name, address, telephonenumber, email);
         if (pharmacy.addNewCustomer(newCustomer)) {
             System.out.println("New customer added: customerID = " + customerID + ", name = " + name + ", address = " + address + ", telephonenumber = " + telephonenumber + ", email = " + email);
         } else {
             System.out.println("Cannot add, " + name + " already on file");
         }
     }
+
+
 }
 
 

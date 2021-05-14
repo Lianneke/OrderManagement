@@ -50,7 +50,7 @@ public class Charge {
         return discountPrice;
     }
 
-    public static Charge createNewCharge(String chargenumber, LocalDate expirationDate, int quantity){
-        return new Charge(chargenumber, expirationDate, quantity);
-    }
+//    public static Charge createNewCharge(String chargenumber, LocalDate expirationDate, int quantity){
+//        return new Charge(chargenumber, expirationDate, quantity);
+//    }
 }

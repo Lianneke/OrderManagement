@@ -28,7 +28,7 @@ public class OrderLine {
         return price;
     }
 
-    public static OrderLine createOrderLine(Medicine existingMedicineRecord, Charge existingChargeNumber, int pieces, double discountPrice){
-        return new OrderLine(existingMedicineRecord, existingChargeNumber, pieces, discountPrice);
-    }
+//    public static OrderLine createOrderLine(Medicine existingMedicineRecord, Charge existingChargeNumber, int pieces, double discountPrice){
+//        return new OrderLine(existingMedicineRecord, existingChargeNumber, pieces, discountPrice);
+//    }
 }

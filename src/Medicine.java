@@ -22,7 +22,7 @@ public class Medicine {
 //        }
         return true;
     }
-
+// sout line nog eruit halen
     public void printListOfCharges() {
         for (int i = 0; i < this.charges.size(); i++) {
             System.out.println(i + 1 + "." +
@@ -100,7 +100,7 @@ public class Medicine {
         return charges;
     }
 
-    public static Medicine createMedicine(String number, String name, double price){
-        return new Medicine(number, name, price);
-    }
+//    public static Medicine createMedicine(String number, String name, double price){
+//        return new Medicine(number, name, price);
+//    }
 }
