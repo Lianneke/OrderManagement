@@ -16,10 +16,6 @@ public class Medicine {
 
     public boolean addNewCharge(Charge charge) {
         charges.add(charge);
-//        if(findCharge(charge.getChargeNumber()) >= 0){
-        //           System.out.println("Charge already exists");
-        //           return false;
-//        }
         return true;
     }
 // sout line nog eruit halen
@@ -32,28 +28,6 @@ public class Medicine {
             );
         }
     }
-
-
-        public double discountAllowed(Charge charge){
-        if(charge.discountAllowedON(charge) == false) {
-            return price;
-        }else{
-            double discountPrice = price * 0.75;
-            charge.setDiscountPriceActive(discountPrice);
-            return discountPrice;
-            }
-    }
-
- //   public boolean removeCharge(Charge charge){
- //       int foundPosition = findCharge(charge);
- //       if(foundPosition <0){
- //           System.out.println(charge.getChargeNumber() + ", was  not found");
- //           return false;
- //       }
- //       this.charges.remove(foundPosition);
- //       System.out.println(charge.getChargeNumber() + ", was deleted");
- //       return true;
- //   }
 
     private int findCharge(Charge charge) {
         return this.charges.indexOf(charge);
@@ -99,8 +73,4 @@ public class Medicine {
     public ArrayList<Charge> getCharges() {
         return charges;
     }
-
-//    public static Medicine createMedicine(String number, String name, double price){
-//        return new Medicine(number, name, price);
-//    }
 }

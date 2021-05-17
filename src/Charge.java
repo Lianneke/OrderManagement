@@ -1,7 +1,5 @@
 import java.time.LocalDate;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 public class Charge {
 
     private String chargeNumber;
@@ -14,16 +12,6 @@ public class Charge {
         this.chargeNumber = chargeNumber;
         this.expirationDate = expirationDate;
         this.quantity = quantity;
-    }
-
-    public boolean discountAllowedON(Charge charge){
-        long daysBetween = DAYS.between(LocalDate.now(), charge.getExpirationDate());
-        if(daysBetween <= 30){
-        this.discountPrice = true;
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public void setDiscountPriceActive(double discountPriceActive) {
@@ -50,7 +38,4 @@ public class Charge {
         return discountPrice;
     }
 
-//    public static Charge createNewCharge(String chargenumber, LocalDate expirationDate, int quantity){
-//        return new Charge(chargenumber, expirationDate, quantity);
-//    }
 }

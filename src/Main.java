@@ -7,6 +7,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static Store store = new Store("CZE");
     private static Pharmacy pharmacy = new Pharmacy("CZE");
+    private static CalculateDiscount calculateDiscount = new CalculateDiscount();
 
 
     public static void main(String[] args) {
@@ -238,9 +239,13 @@ public class Main {
     }
 
     private static void checkIfDiscountIsAllowed(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord) {
-        double Price = existingMedicineRecord.discountAllowed(existingChargeNumber);
-        System.out.println(Price);
-        verifingChargeChoice(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, Price);
+        double exitPrice = calculateDiscount.calculateIfChargeNeedsADiscount(existingChargeNumber, existingMedicineRecord);
+
+
+
+        //double Price = existingMedicineRecord.discountAllowed(existingChargeNumber);
+        ///System.out.println(Price);
+        verifingChargeChoice(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, exitPrice);
     }
 
     private static void verifingChargeChoice(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, double Price) {
