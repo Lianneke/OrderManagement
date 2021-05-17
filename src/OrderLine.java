@@ -28,7 +28,12 @@ public class OrderLine {
         return price;
     }
 
-//    public static OrderLine createOrderLine(Medicine existingMedicineRecord, Charge existingChargeNumber, int pieces, double discountPrice){
+    @Override
+    public String toString() {
+        return "Name: " + this.medicine.getName() + " Quantity: " + this.quantity + " Price: " + this.price;
+    }
+
+    //    public static OrderLine createOrderLine(Medicine existingMedicineRecord, Charge existingChargeNumber, int pieces, double discountPrice){
 //        return new OrderLine(existingMedicineRecord, existingChargeNumber, pieces, discountPrice);
 //    }
 }

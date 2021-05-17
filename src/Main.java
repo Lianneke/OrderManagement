@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
@@ -10,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        LinkedList<OrderLine> orderLines = new LinkedList<OrderLine>();
 
         //Voorgecodeerde medicijnen
         Medicine medicine = new Medicine("158269", "Paracetamol 500mg", 1.99);
@@ -284,8 +286,8 @@ public class Main {
         printListOfOrderLines(newOrder);
     }
 
-    public static void printListOfOrderLines(Order newOrder) {
-        System.out.println(newOrder.getOrderLines());
+    public static void printListOfOrderLines(Order newOrder){
+        System.out.println(newOrder.toString());
     }
 
     public static void addNewCustomer() {
