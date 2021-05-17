@@ -13,11 +13,12 @@ public class Store {
     }
 
     public boolean addNewMedicine(Medicine medicine) {
-        if (search.findMedicine(medicines, medicine) >= 0) ;
+        if (search.findMedicine(medicines, medicine) >= 0) {
         return false;
-        {
-        medicines.add(medicine);
-        return true;
+    }else{
+            medicines.add(medicine);
+            return true;
+        }
     }
 
 
@@ -70,7 +71,7 @@ public class Store {
     }
 
     public Medicine queryMedicine(String number){
-        int position = findMedicine(number);
+        int position = search.findIndexOfMedicine(medicines, number);
         if(position >=0){
             return this.medicines.get(position);
         }
