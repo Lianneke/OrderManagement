@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class Store {
 
+    private static Search search = new Search();
+
     private String storeName;
     private ArrayList<Medicine> medicines;
 
@@ -10,13 +12,14 @@ public class Store {
         this.medicines = new ArrayList<Medicine>();
     }
 
-    public boolean addNewMedicine(Medicine medicine){
-    if(findMedicine(medicine.getNumber()) >= 0){
-    return false;
+    public boolean addNewMedicine(Medicine medicine) {
+        if (search.findMedicine(medicines, medicine) >= 0) ;
+        return false;
+        {
+        medicines.add(medicine);
+        return true;
     }
-    medicines.add(medicine);
-    return true;
-    }
+
 
     public void printListOfMedicines(){
         for(int i=0; i<this.medicines.size(); i++){
@@ -28,7 +31,7 @@ public class Store {
     }
 
     public boolean removeMedicine(Medicine medicine){
-        int foundPosition = findMedicine(medicine);
+        int foundPosition = search.findMedicine(medicines, medicine);
         if(foundPosition <0){
             return false;
         }
@@ -37,7 +40,7 @@ public class Store {
     }
 
     public boolean printListOfCharges(Medicine medicine){
-        if(findMedicine(medicine.getNumber()) <0){
+        if(search.findIndexOfMedicine(medicines, medicine) <0){
             return false;
         }
         System.out.println(medicine.getCharges());
@@ -45,22 +48,22 @@ public class Store {
     }
 
 
-    private int findMedicine(Medicine medicine) {
-        return this.medicines.indexOf(medicine);
-    }
+//    private int findMedicine(Medicine medicine) {
+//        return this.medicines.indexOf(medicine);
+//    }
 
-    private int findMedicine(String medicineNumber) {
-        for(int i=0; i<this.medicines.size(); i++) {
-            Medicine medicine = this.medicines.get(i);
-            if(medicine.getNumber().equals(medicineNumber)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+//    private int findMedicine(String medicineNumber) {
+//        for(int i=0; i<this.medicines.size(); i++) {
+//            Medicine medicine = this.medicines.get(i);
+//            if(medicine.getNumber().equals(medicineNumber)) {
+//                return i;
+//            }
+//        }
+//        return -1;
+//    }
 
     public String queryMedicine(Medicine medicine) {
-        if(findMedicine(medicine) >=0){
+        if(search.findIndexOfMedicine(medicines, medicine) >=0){
             return medicine.getNumber();
         }
         return null;
