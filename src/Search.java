@@ -1,24 +1,37 @@
+import java.util.ArrayList;
 
+public class Search {
 
-abstract class Search {
+    private ArrayList<Medicine>medicines;
 
-    public int find() {
-        return 0;
+    public Medicine findMedicine(Medicine medicine){
+        for(int i = 0; i < medicines.size(); i++){
+            Medicine medicineNumber = medicines.get(i);
+            if(medicineNumber.getNumber().equals(medicine)){
+                return medicine;
+            }
+        }
+        return medicine;
     }
 
+    public int findIndexOfMedicine(String medicineNumber){
+       return medicines.indexOf(medicineNumber);
+    }
 
-//    public int findMedicine(ArrayList<Medicine> medicines, Medicine medicine) {
-//
-//        for (int i = 0; i < medicines.size(); i++) {
-//            Medicine medicineNumber = medicines.get(i);
-//            if (medicineNumber.getNumber().equals(medicine)) {
-//                return i;
-//            }
-//        }
-//        return -1;
-//    }
-
-//    public int findIndexOfMedicine(ArrayList<Medicine> medicines, Medicine medicine){
-//        return medicines.indexOf(medicine);
-//    }
+    public Medicine queryMedicine(String number){
+        int position = findIndexOfMedicine( number);
+        if(position >=0){
+            return this.medicines.get(position);
+        }
+        return null;
+    }
 }
+
+//    public String queryMedicine(ArrayList<Medicine> medicines, Medicine medicine) {
+//        if(findIndexOfMedicine(medicines, medicine) >=0){
+//            return medicine.getNumber();
+//        }
+//        return null;
+//    }
+
+

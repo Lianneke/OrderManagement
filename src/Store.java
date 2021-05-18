@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Store {
 
-    private static Search search = new Search();
+    private Search search = new Search();
 
     private String storeName;
     private ArrayList<Medicine> medicines;
@@ -13,11 +13,20 @@ public class Store {
     }
 
     public boolean addNewMedicine(Medicine medicine) {
-        if (search.findMedicine(medicines, medicine) >= 0) {
+        if (search.findMedicine(medicine).equals(medicine)) {
         return false;
     }else{
             medicines.add(medicine);
             return true;
+        }
+    }
+
+    public boolean removeMedicine(Medicine medicine){
+        if(search.findMedicine(medicine).equals(medicine)){
+            this.medicines.remove(medicine);
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -31,22 +40,15 @@ public class Store {
         }
     }
 
-    public boolean removeMedicine(Medicine medicine){
-        int foundPosition = search.findMedicine(medicines, medicine);
-        if(foundPosition <0){
+    public boolean printListOfCharges(Medicine medicine){
+        if(search.findMedicine(medicine).equals(medicine)){
+            medicine.getCharges();
+            return true;
+        }else {
             return false;
         }
-        this.medicines.remove(foundPosition);
-        return true;
     }
 
-    public boolean printListOfCharges(Medicine medicine){
-        if(search.findIndexOfMedicine(medicines, medicine) <0){
-            return false;
-        }
-        System.out.println(medicine.getCharges());
-        return true;
-    }
 
 
 //    private int findMedicine(Medicine medicine) {
@@ -63,19 +65,19 @@ public class Store {
 //        return -1;
 //    }
 
-    public String queryMedicine(Medicine medicine) {
-        if(search.findIndexOfMedicine(medicines, medicine) >=0){
-            return medicine.getNumber();
-        }
-        return null;
-    }
-
-    public Medicine queryMedicine(String number){
-        int position = search.findIndexOfMedicine(medicines, number);
-        if(position >=0){
-            return this.medicines.get(position);
-        }
-        return null;
-    }
+//    public String queryMedicine(Medicine medicine) {
+//        if(search.findIndexOfMedicine(medicines, medicine) >=0){
+//            return medicine.getNumber();
+//        }
+//        return null;
+//    }
+//
+//    public Medicine queryMedicine(String number){
+//        int position = search.findIndexOfMedicine(medicines, number);
+//        if(position >=0){
+//            return this.medicines.get(position);
+//        }
+//        return null;
+//    }
 
 }

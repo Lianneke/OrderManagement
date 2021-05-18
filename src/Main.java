@@ -7,7 +7,7 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
     private static Store store = new Store("CZE");
     private static Pharmacy pharmacy = new Pharmacy("CZE");
-    private static CalculateDiscount calculateDiscount = new CalculateDiscount();
+    private static Search search = new Search();
 
 
     public static void main(String[] args) {
@@ -127,7 +127,7 @@ public class Main {
     }
 
     private static void searchMedicine(String number) {
-        Medicine existingMedicineRecord = store.queryMedicine(number);
+        Medicine existingMedicineRecord = search.queryMedicine(number);
         if (existingMedicineRecord == null) {
             System.out.println("Medicine not found");
             return;
@@ -208,15 +208,15 @@ public class Main {
         searchMedicineToStartOrder(existingCustomerRecord);
     }
 
-    private static void searchMedicineToStartOrder(Customer existingCustomerRecord) {
+    private static void searchMedicineToStartOrder(Customer existingCustomerRecord){
         store.printListOfMedicines();
         System.out.println("Enter existing medicinenumber");
         String medicineNumber = scanner.nextLine();
-        Medicine existingMedicineRecord = store.queryMedicine(medicineNumber);
-        if (existingMedicineRecord == null) {
+        Medicine existingMedicineRecord = search.queryMedicine(medicineNumber);
+        if(existingMedicineRecord == null){
             System.out.println("Medicine not found.");
             return;
-        } else {
+        }else{
             continueOrderChargeChoice(existingCustomerRecord, existingMedicineRecord);
         }
     }
@@ -235,20 +235,20 @@ public class Main {
             System.out.println("Charge not found");
             return;
         }
-        checkIfDiscountIsAllowed(existingChargeNumber, existingMedicineRecord, existingCustomerRecord);
+        verifingChargeChoice(existingChargeNumber, existingMedicineRecord, existingCustomerRecord);
     }
 
-    private static void checkIfDiscountIsAllowed(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord) {
-        double exitPrice = calculateDiscount.calculateIfChargeNeedsADiscount(existingChargeNumber, existingMedicineRecord);
+//    private static void checkIfDiscountIsAllowed(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord) {
+//        double exitPrice = calculateDiscount.calculateIfChargeNeedsADiscount(existingChargeNumber, existingMedicineRecord);
+//
+//
+//
+//        //double Price = existingMedicineRecord.discountAllowed(existingChargeNumber);
+//        ///System.out.println(Price);
+//        verifingChargeChoice(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, exitPrice);
+//    }
 
-
-
-        //double Price = existingMedicineRecord.discountAllowed(existingChargeNumber);
-        ///System.out.println(Price);
-        verifingChargeChoice(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, exitPrice);
-    }
-
-    private static void verifingChargeChoice(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, double Price) {
+    private static void verifingChargeChoice(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord) {
         System.out.println("Do you wanna order from this charge?\n" +
                 "1. Yes\n" +
                 "2. No\n");
@@ -256,7 +256,7 @@ public class Main {
 
         switch (orderAnswer) {
             case "1":
-                setHowManyPieces(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, Price);
+                setHowManyPieces(existingChargeNumber, existingMedicineRecord, existingCustomerRecord);
                 break;
             case "2":
                 continueOrderChargeChoice(existingCustomerRecord, existingMedicineRecord);
@@ -265,14 +265,14 @@ public class Main {
         }
     }
 
-    private static void setHowManyPieces(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, double Price) {
+    private static void setHowManyPieces(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord) {
         System.out.println("how many pieces do you want to order?");
         int pieces = scanner.nextInt();
-        createNewOrderLine(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, pieces, Price);
+        createNewOrderLine(existingChargeNumber, existingMedicineRecord, existingCustomerRecord, pieces);
     }
 
-    private static void createNewOrderLine(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, int pieces, double Price) {
-        OrderLine newOrderLine = new OrderLine(existingMedicineRecord, existingChargeNumber, pieces, Price);
+    private static void createNewOrderLine(Charge existingChargeNumber, Medicine existingMedicineRecord, Customer existingCustomerRecord, int pieces) {
+        OrderLine newOrderLine = new OrderLine(existingMedicineRecord, existingChargeNumber, pieces);
         createNewOrder(existingCustomerRecord, newOrderLine);
     }
 
@@ -282,7 +282,21 @@ public class Main {
         long orderNumber = scanner.nextLong();
         Order newOrder = new Order(existingCustomerRecord, orderNumber);
         addOrderLineToOrder(newOrder, newOrderLine);
+        System.out.println("Thank you for your order");
+//        continueOrdering(existingCustomerRecord, newOrder);
     }
+
+//    private static void continueOrdering(Customer existingCustomerRecord, Order orderNumber){
+//        System.out.println("Do you wish to continue ordering?\n" +
+//                "1. Yes\n" +
+//                "2. No\n");
+//        String answer = scanner.nextLine();
+//
+//        switch (answer){
+//            case "1":
+//
+//        }
+//    }
 
 
 
@@ -318,34 +332,6 @@ public class Main {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    public static void removeCharge(){
-//        store.printListOfMedicines();
-//        System.out.println("Enter existing medicinenumber");
-//        String medicineNumber = scanner.nextLine();
-//        Medicine existingMedicineRecord = store.queryMedicine(medicineNumber);
-//        if(existingMedicineRecord == null){
-//            System.out.println("Medicine not found. ");
-//            return;
-//        }
-
-//        System.out.println("Enter existing chargenumber");
-//        String chargeNumber = scanner.nextLine();
-//        Charge existingChargeRecord = existingMedicineRecord.queryCharge(chargeNumber);
-//    }
 
 
 
