@@ -21,7 +21,7 @@ public class Order {
     }
 
     public ArrayList<OrderLine> getOrderLines(){
-        return orderLines;
+        return this.orderLines;
     }
 
 

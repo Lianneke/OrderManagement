@@ -17,7 +17,7 @@ public class OrderLine {
     }
 
     public Charge getCharge() {
-        return charge;
+        return this.charge;
     }
 
     public int getQuantity() {

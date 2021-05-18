@@ -5,8 +5,8 @@ public class Charge {
     private String chargeNumber;
     private LocalDate expirationDate;
     private int quantity;
-    private boolean discountPrice = false;
-    private double discountPriceActive;
+//    private boolean discountPrice = false;
+//    private double discountPriceActive;
 
     public Charge(String chargeNumber,  LocalDate expirationDate, int quantity) {
         this.chargeNumber = chargeNumber;
@@ -14,9 +14,9 @@ public class Charge {
         this.quantity = quantity;
     }
 
-    public void setDiscountPriceActive(double discountPriceActive) {
-        this.discountPriceActive = discountPriceActive;
-    }
+//    public void setDiscountPriceActive(double discountPriceActive) {
+//        this.discountPriceActive = discountPriceActive;
+//    }
 
     public String getChargeNumber() {
         return chargeNumber;
@@ -30,12 +30,12 @@ public class Charge {
         return quantity;
     }
 
-    public double getDiscountPriceActive() {
-        return discountPriceActive;
-    }
-
-    public boolean isDiscountPrice() {
-        return discountPrice;
-    }
+//    public double getDiscountPriceActive() {
+//        return discountPriceActive;
+//    }
+//
+//    public boolean isDiscountPrice() {
+//        return discountPrice;
+//    }
 
 }
